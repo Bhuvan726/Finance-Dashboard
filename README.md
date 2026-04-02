@@ -1,11 +1,10 @@
-# Finance Dashboard
+# 💰 Finance Dashboard
 
 ## 📌 Overview
 
-This project is a backend system for a finance dashboard application.
-It allows users to manage financial records, apply role-based access control, and view summary analytics.
+This project is a backend system for a finance dashboard that allows users to manage financial records, apply role-based access control, and view summarized insights.
 
-The system is designed with clean architecture, proper API design, and scalable structure using Spring Boot.
+It is built using **Spring Boot** with a clean layered architecture and follows best backend practices.
 
 ---
 
@@ -16,38 +15,55 @@ The system is designed with clean architecture, proper API design, and scalable 
 * Spring Data JPA
 * MySQL
 * Maven
-* Postman (for testing)
+* Postman
 
 ---
 
-## 👥 User & Role Management
-
-Roles supported:
-
-* **ADMIN** → Full access (create, update, delete)
-* **ANALYST** → View records and summaries
-* **VIEWER** → Read-only access
-
-Role-based access is implemented using **HTTP Headers**.
-
-Example:
+## 🏗️ Architecture
 
 ```
-role: ADMIN
+Controller → Service → Repository → Database
+```
+
+* **Controller** → Handles API requests
+* **Service** → Business logic
+* **Repository** → Database interaction
+
+---
+
+## 👥 User Roles
+
+| Role    | Permissions                          |
+| ------- | ------------------------------------ |
+| ADMIN   | Full access (create, update, delete) |
+| ANALYST | View records + dashboard             |
+| VIEWER  | Read-only access                     |
+
+---
+
+## 🔐 Role-Based Access
+
+Roles are passed using HTTP headers:
+
+```
+Key: role
+Value: ADMIN
 ```
 
 ---
 
-## 💰 Financial Records
+## 💰 Financial Record Structure
 
-Each record contains:
-
-* Amount
-* Type (INCOME / EXPENSE)
-* Category
-* Date
-* Notes
-* User ID
+```json
+{
+  "amount": 1000,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-02",
+  "notes": "Monthly salary",
+  "userId": 2
+}
+```
 
 ---
 
@@ -113,39 +129,17 @@ GET /records/paginated?page=0&size=5
 
 ---
 
-## 🔐 Access Control
+## 📊 Sample Pagination Response
 
-Implemented using:
-
-* Role-based checks
-* HTTP Headers instead of query parameters
-
----
-
-## ✅ Validation
-
-Input validation is implemented using:
-
-* `@Valid`
-* `@NotNull`
-
-Invalid requests return:
-
+```json
+{
+  "content": [...],
+  "totalElements": 7,
+  "totalPages": 4,
+  "size": 2,
+  "number": 0
+}
 ```
-400 Bad Request
-```
-
----
-
-## 📊 Pagination
-
-Pagination is implemented using Spring Data JPA.
-
-Example response includes:
-
-* content
-* totalPages
-* totalElements
 
 ---
 
@@ -159,6 +153,18 @@ Example response includes:
 
 ---
 
+## ✅ Features Implemented
+
+* User Management
+* Financial Records CRUD
+* Filtering
+* Pagination
+* Dashboard Summary APIs
+* Role-Based Access Control
+* Validation & Error Handling
+
+---
+
 ## ❌ Optional Features Not Implemented
 
 * Authentication (JWT)
@@ -166,46 +172,30 @@ Example response includes:
 * Rate limiting
 * Unit testing
 
-### Reason:
-
-Focus was on core backend functionality, API design, and business logic.
-
----
-
-## 🧠 Design Decisions
-
-* Clean separation: Controller → Service → Repository
-* Used ResponseEntity for proper HTTP responses
-* Header-based role for realistic API design
-* Pagination for scalability
+**Reason:** Focused on core backend logic and clean design.
 
 ---
 
 ## ▶️ How to Run
 
-1. Clone repository
+1. Clone the repository
 2. Configure MySQL in `application.properties`
-3. Run Spring Boot application
+3. Run the Spring Boot application
 4. Test APIs using Postman
 
 ---
 
-## 🧪 Sample Header
+## 🧠 Design Decisions
 
-```
-Key: role
-Value: ADMIN
-```
+* Used layered architecture for maintainability
+* Implemented pagination for scalability
+* Used header-based role access for realism
+* Used ResponseEntity for proper HTTP responses
 
 ---
 
 ## 📌 Conclusion
 
-This project demonstrates:
-
-* Backend architecture
-* API design
-* Role-based access control
-* Data handling and validation
+This project demonstrates strong backend fundamentals including API design, data handling, access control, and system structure.
 
 ---
